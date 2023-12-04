@@ -16,6 +16,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+
 // TODO: Obviously use a more secure signing key than "secret"
 app.post("/api/user/login", (req, res) => {
   try {
@@ -44,6 +46,8 @@ app.post("/api/user/validation", (req, res) => {
 
 app.get("/api/posts", async (req, res) => {
   // Sleep delay goes here
+  // const posts = await prisma.post.findMany();
+  // console.log(posts);
   res.json(posts);
 });
 

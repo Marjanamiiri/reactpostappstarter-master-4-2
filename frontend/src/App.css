@@ -27,3 +27,6 @@ a.active {
 h4 {
   cursor: pointer;
 }
+.App {
+  background-color: var(--background-color);
+}

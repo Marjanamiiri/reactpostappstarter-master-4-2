@@ -1,34 +1,29 @@
-// PostDetailsPage.jsx
-
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { Button, Container, Image } from "@mantine/core";
-import DOMAIN from "../../services/endpoint"; // Import the DOMAIN variable
-
+import data from   "../../../../backend/data.json";
 
 function PostDetailsPage() {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    const fetchPostDetails = async () => {
-      try {
-        const response = await axios.get(`${DOMAIN}/api/posts/${postId}`);
-        setPost(response.data);
-      } catch (error) {
-        console.error("Error fetching post details:", error);
+    console.log('Current postId:', postId);
+  
+    const fetchPostDetails = () => {
+      const postDetails = data.posts.find((post) => post.id === parseInt(postId, 10));
+      console.log('Post details:', postDetails);
+  
+      if (postDetails) {
+        setPost(postDetails);
+      } else {
+        console.error("Post not found");
       }
     };
-
+  
     fetchPostDetails();
   }, [postId]);
-
-
-  const getAuthorName = (email) => {
-    const atIndex = email.indexOf("@");
-    return atIndex !== -1 ? email.slice(0, atIndex) : email;
-  };
+  
 
   return (
     <Container>
@@ -64,6 +59,5 @@ export const postDetailsLoader = async ({ params }) => {
     throw error;
   }
 };
-
 
 export default PostDetailsPage;
